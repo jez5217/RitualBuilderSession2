@@ -1,0 +1,486 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "AlreadyCommitted",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "AlreadyRevealed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "AnswerTooLong",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "BountyAlreadyRegistered",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "BountyNotRegistered",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "CommitPhaseClosed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "HashMismatch",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "InvalidDeadline",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotRevealedYet",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NothingCommitted",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "RevealPhaseClosed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "RevealPhaseNotOpen",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					}
+				],
+				"name": "BountyRegistered",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "participant",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "commitment",
+						"type": "bytes32"
+					}
+				],
+				"name": "Committed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "participant",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "answer",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "salt",
+						"type": "bytes32"
+					}
+				],
+				"name": "Revealed",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "MAX_ANSWER_LENGTH",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "REVEAL_WINDOW",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "bountyMeta",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "registered",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					}
+				],
+				"name": "currentPhase",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "entries",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "commitment",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "string",
+						"name": "answer",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "salt",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bool",
+						"name": "revealed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "participant",
+						"type": "address"
+					}
+				],
+				"name": "getAnswer",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "participant",
+						"type": "address"
+					}
+				],
+				"name": "hasRevealed",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "answer",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "salt",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "participant",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					}
+				],
+				"name": "makeCommitment",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					}
+				],
+				"name": "registerBounty",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "answer",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "salt",
+						"type": "bytes32"
+					}
+				],
+				"name": "revealAnswer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "bountyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "commitment",
+						"type": "bytes32"
+					}
+				],
+				"name": "submitCommitment",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"registerBounty(uint256,uint256)": {
+					"params": {
+						"bountyId": "The bounty identifier from AIJudge.",
+						"deadline": "block.timestamp deadline copied from AIJudge.Bounty.deadline."
+					}
+				},
+				"revealAnswer(uint256,string,bytes32)": {
+					"params": {
+						"answer": "Plaintext answer string committed earlier.",
+						"bountyId": "Target bounty.",
+						"salt": "Random salt used when building the commitment. Valid window: (deadline, deadline + REVEAL_WINDOW]"
+					}
+				},
+				"submitCommitment(uint256,bytes32)": {
+					"params": {
+						"bountyId": "Target bounty.",
+						"commitment": "keccak256(abi.encodePacked(answer, salt, msg.sender, bountyId))"
+					}
+				}
+			},
+			"title": "CommitReveal",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"MAX_ANSWER_LENGTH()": {
+					"notice": "Maximum answer length (mirrors AIJudge.MAX_ANSWER_LENGTH)."
+				},
+				"REVEAL_WINDOW()": {
+					"notice": "How long after the commit deadline the reveal window stays open."
+				},
+				"bountyMeta(uint256)": {
+					"notice": "bountyId => BountyMeta"
+				},
+				"currentPhase(uint256)": {
+					"notice": "Current phase for a bounty.         0 = commit open, 1 = reveal open, 2 = closed / not registered."
+				},
+				"entries(uint256,address)": {
+					"notice": "bountyId => submitter => Entry"
+				},
+				"getAnswer(uint256,address)": {
+					"notice": "Returns the revealed answer for a participant.         Reverts if not yet revealed — AIJudge should call this to gate judging."
+				},
+				"hasRevealed(uint256,address)": {
+					"notice": "True only if the participant committed AND successfully revealed."
+				},
+				"makeCommitment(string,bytes32,address,uint256)": {
+					"notice": "Compute the commitment hash (use off-chain or in tests)."
+				},
+				"registerBounty(uint256,uint256)": {
+					"notice": "Register a bounty's deadline so this contract can enforce phases.         Called by the bounty owner (or AIJudge itself) after createBounty."
+				},
+				"revealAnswer(uint256,string,bytes32)": {
+					"notice": "Reveal the answer after the submission deadline."
+				},
+				"submitCommitment(uint256,bytes32)": {
+					"notice": "Submit a commitment for a specific bounty."
+				}
+			},
+			"notice": "Commit-reveal scheme scoped per bounty, compatible with AIJudge. Commitment formula:   keccak256(abi.encodePacked(answer, salt, msg.sender, bountyId)) Flow:   1. commit(bountyId, hash)        — before bounty deadline   2. reveal(bountyId, answer, salt) — after deadline, within reveal window   3. AIJudge.judgeAll only considers entries where revealed == true",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"/ritual-chain-workshop/hardhat/contracts/CommitReveal.sol": "CommitReveal"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"/ritual-chain-workshop/hardhat/contracts/CommitReveal.sol": {
+			"keccak256": "0x07178bcedf53fcdcdfda58b6dc9f141447b0b726700b1bd85abc4cfb1ade2242",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b62423811bfc30664cf2d21002e81c1e25e0e9b91869e0a5997c68cebff3912a",
+				"dweb:/ipfs/QmbYQ4EyFqRQkUrnsYpWRxfx6gtDvNcvJmMRac8qGTkK9b"
+			]
+		}
+	},
+	"version": 1
+}
